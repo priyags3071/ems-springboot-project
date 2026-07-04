@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EMS · Login</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1117;
+      color: #e8eaf0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .logo-icon {
+      width: 46px; height: 46px;
+      background: linear-gradient(135deg, #4f8ef7, #7b5ea7);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+    }
+    .logo h1 { font-size: 22px; font-weight: 800; }
+    .logo span { font-size: 12px; color: #8891aa; }
+
+    .card {
+      background: #1a1d27;
+      border: 1px solid #2e3350;
+      border-radius: 16px;
+      padding: 36px 32px;
+      width: 100%;
+      box-shadow: 0 8px 40px rgba(0,0,0,.5);
+    }
+
+    .card h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .card p  { font-size: 13px; color: #8891aa; margin-bottom: 28px; }
+
+    .alert {
+      padding: 11px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 18px;
+    }
+    .alert-error  { background: rgba(239,68,68,.12);  border: 1px solid rgba(239,68,68,.3);  color: #ef4444; }
+    .alert-success{ background: rgba(62,207,142,.12); border: 1px solid rgba(62,207,142,.3); color: #3ecf8e; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 600;
+      color: #8891aa; text-transform: uppercase; letter-spacing: .5px;
+      margin-bottom: 7px;
+    }
+    .form-group input {
+      width: 100%; padding: 11px 14px;
+      background: #22263a; border: 1px solid #2e3350;
+      border-radius: 8px; color: #e8eaf0; font-size: 14px;
+      outline: none; transition: border-color .2s;
+    }
+    .form-group input:focus { border-color: #4f8ef7; }
+
+    .btn-login {
+      width: 100%; padding: 12px;
+      background: linear-gradient(135deg, #4f8ef7, #7b5ea7);
+      border: none; border-radius: 8px;
+      color: #fff; font-size: 14px; font-weight: 700;
+      cursor: pointer; margin-top: 6px;
+      transition: opacity .2s;
+    }
+    .btn-login:hover { opacity: .88; }
+
+    .hint {
+      margin-top: 22px;
+      background: #22263a;
+      border: 1px solid #2e3350;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 12.5px;
+      color: #8891aa;
+    }
+    .hint strong { color: #e8eaf0; }
+    .hint div { margin-bottom: 4px; }
+  </style>
+</head>
+<body>
+
+<div class="login-wrapper">
+
+  <div class="logo">
+    <div class="logo-icon">👥</div>
+    <div>
+      <h1>EMS Portal</h1>
+      <span>Employee Management System</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Welcome back</h2>
+    <p>Sign in to access your dashboard</p>
+
+    <div id="alert-box" style="display:none" class="alert"></div>
+
+    <form method="POST" action="/login">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter username" required autofocus />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter password" required />
+      </div>
+      <button type="submit" class="btn-login">Sign In →</button>
+    </form>
+
+    <div class="hint" style="margin-top:20px">
+      <div><strong>Admin:</strong> username: <strong>admin</strong> / password: <strong>admin123</strong></div>
+      <div><strong>HR:</strong> &nbsp;&nbsp;&nbsp;&nbsp;username: <strong>hr</strong> / password: <strong>hr123</strong></div>
+    </div>
+    <div class="login-link" style="text-align:center; margin-top:18px; font-size:13px; color:#8891aa;">
+        Don't have an account? <a href="/register.html" style="color:#4f8ef7; font-weight:600; text-decoration:none;">Register here</a>
+      </div>
+  </div>
+
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const box = document.getElementById('alert-box');
+  if (params.get('error')) {
+    box.className = 'alert alert-error';
+    box.textContent = '✕  Invalid username or password. Please try again.';
+    box.style.display = 'block';
+  }
+  if (params.get('logout')) {
+    box.className = 'alert alert-success';
+    box.textContent = '✓  You have been logged out successfully.';
+    box.style.display = 'block';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Environment variables - never upload this!
+.env
+
+# Maven
+target/
+
+# IDE files
+.vscode/
+.idea/
+*.iml

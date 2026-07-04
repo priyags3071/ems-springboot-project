@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EMS · Register</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1117; color: #e8eaf0;
+      min-height: 100vh; display: flex;
+      align-items: center; justify-content: center;
+    }
+    .wrapper { width: 100%; max-width: 420px; padding: 20px; }
+    .logo { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+    .logo-icon {
+      width: 46px; height: 46px;
+      background: linear-gradient(135deg, #4f8ef7, #7b5ea7);
+      border-radius: 12px; display: flex;
+      align-items: center; justify-content: center; font-size: 22px;
+    }
+    .logo h1 { font-size: 22px; font-weight: 800; }
+    .logo span { font-size: 12px; color: #8891aa; }
+    .card {
+      background: #1a1d27; border: 1px solid #2e3350;
+      border-radius: 16px; padding: 36px 32px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.5);
+    }
+    .card h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    .card p  { font-size: 13px; color: #8891aa; margin-bottom: 24px; }
+    .alert { padding: 11px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
+    .alert-error   { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.3); color: #ef4444; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: #8891aa; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 7px; }
+    .form-group input,
+    .form-group select {
+      width: 100%; padding: 11px 14px;
+      background: #22263a; border: 1px solid #2e3350;
+      border-radius: 8px; color: #e8eaf0; font-size: 14px;
+      outline: none; transition: border-color .2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus { border-color: #4f8ef7; }
+    .btn {
+      width: 100%; padding: 12px; border: none; border-radius: 8px;
+      font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity .2s;
+    }
+    .btn-primary { background: linear-gradient(135deg, #4f8ef7, #7b5ea7); color: #fff; }
+    .btn-primary:hover { opacity: .88; }
+    .login-link { text-align: center; margin-top: 20px; font-size: 13px; color: #8891aa; }
+    .login-link a { color: #4f8ef7; text-decoration: none; font-weight: 600; }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="logo">
+    <div class="logo-icon">👥</div>
+    <div><h1>EMS Portal</h1><span>Create your account</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Create Account</h2>
+    <p>Register to access the EMS dashboard</p>
+
+    <div id="alert-box" style="display:none" class="alert alert-error"></div>
+
+    <form method="POST" action="/register">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Choose a username" required autofocus/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Choose a password" required/>
+      </div>
+      <div class="form-group">
+        <label>Role</label>
+        <select name="role">
+          <option value="ADMIN">Admin</option>
+          <option value="HR">HR</option>
+          <option value="VIEWER">Viewer</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Create Account →</button>
+    </form>
+
+    <div class="login-link">
+      Already have an account? <a href="/login.html">Sign in</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('error')) {
+    const box = document.getElementById('alert-box');
+    box.textContent = '✕  ' + decodeURIComponent(params.get('error'));
+    box.style.display = 'block';
+  }
+</script>
+</body>
+</html>
