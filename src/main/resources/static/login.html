@@ -125,7 +125,10 @@
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" name="password" placeholder="Enter password" required />
+        <div style="position:relative;">
+          <input type="password" id="login-password" name="password" placeholder="Enter password" required style="width:100%; padding:11px 40px 11px 14px; background:#22263a; border:1px solid #2e3350; border-radius:8px; color:#e8eaf0; font-size:14px; outline:none;"/>
+          <span onclick="togglePassword()" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); cursor:pointer; color:#8891aa; font-size:16px;" id="eye-icon">👁️</span>
+        </div>
       </div>
       <button type="submit" class="btn-login">Sign In →</button>
     </form>
@@ -153,6 +156,19 @@
     box.className = 'alert alert-success';
     box.textContent = '✓  You have been logged out successfully.';
     box.style.display = 'block';
+  }
+</script>
+<script>
+  function togglePassword() {
+    const input = document.getElementById('login-password');
+    const icon  = document.getElementById('eye-icon');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.textContent = '🙈';
+    } else {
+      input.type = 'password';
+      icon.textContent = '👁️';
+    }
   }
 </script>
 </body>
